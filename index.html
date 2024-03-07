@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>CNF</title>
+    <script src="index.js" defer></script>
+  </head>
+  <style>
+    html {
+      overflow: hidden;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+    body {
+      background-color: rgb(28, 28, 28);
+    }
+    #outputContainer {
+      font-size: 2rem;
+      font-weight: bolder;
+      padding: 2rem 3rem;
+      background-color: rgb(64, 138, 141);
+      margin: 2rem;
+      min-width: 600px;
+      max-width: 100%;
+      color: white;
+      border-radius: 6px;
+      flex-wrap: wrap;
+      word-break: break-all;
+      position: relative;
+    }
+    .btn {
+      font-size: 2rem;
+      padding: 1rem 2.2rem;
+      cursor: pointer;
+      outline: none;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      background-color: rgb(64, 138, 141);
+      transition : all .3s ease;
+    }
+    .btn:hover {
+      background-color: rgb(35, 91, 93);
+    }
+    .btn:active {
+      background-color: rgb(64, 138, 141);
+    }
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 1rem;
+    }
+    #check {
+      background-color: rgb(225, 244, 77);
+      color: black;
+    }
+    .left {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin-block: 6rem;
+    }
+    .right {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin-block: 6rem;
+      font-size: large;
+      color: white;
+    }
+    .colored {
+      color: rgb(225, 244, 77);
+    }
+    span {
+      color: rgb(225, 244, 77);
+    }
+    .ul2 {
+      margin-left: 1rem;
+    }
+    #clear {
+      position: absolute;
+      right: 5%;
+      top: 25%;
+      cursor: pointer;
+      background: transparent;
+      outline: none;
+      border: none;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <div class="left">
+        <section>
+          <div class="row">
+            <button class="btn" value="(">(</button>
+            <button class="btn" value=")">)</button>
+            <button class="btn" value="~">~</button>
+            <button class="btn" value="^">^</button>
+            <button class="btn" value="v">v</button>
+            <button class="btn" value="→">→</button>
+          </div>
+          <div class="row">
+            <button class="btn" value="P">P</button>
+            <button class="btn" value="Q">Q</button>
+            <button class="btn" value="R">R</button>
+            <button class="btn" value="S">S</button>
+            <button class="btn" value="T">T</button>
+          </div>
+          <button class="btn" value="DEL">DEL</button>
+        </section>
+        <section>
+          <div id="outputContainer">
+            <div id="output"></div>
+            <button id="clear">
+              <i class="fa-solid fa-trash" class="trash"></i>
+            </button>
+          </div>
+        </section>
+        <section>
+          <input class="btn" type="submit" id="check" value="Submit" />
+        </section>
+      </div>
+      <div class="right">
+        <ul>
+          <li>Formule : <span class="formula"></span></li>
+          <li>Sa negation : <span class="notFormula"></span></li>
+          <li>CNF : <span class="cnf"></span></li>
+          <li>Clauses:</li>
+          <ul class="ul2 colored"></ul>
+        </ul>
+        <div>
+          Resultat :
+
+          <span class="result"></span>
+        </div>
+      </div>
+    </div>
+    <script>
+      const btns = document.querySelectorAll("button");
+      const outputDiv = document.querySelector("#output");
+      const alpha = "abcdefghijklmnopqrstuvwxyz";
+      const whiteList = "~v^>()→" + alpha + alpha.toUpperCase();
+      document.body.addEventListener("keypress", (e) => {
+        if (whiteList.includes(e.key)) {
+          if (e.key == ">") outputDiv.textContent += "→";
+          else if (alpha.includes(e.key))
+            outputDiv.textContent += e.key.toUpperCase();
+          else outputDiv.textContent += e.key;
+        }
+      });
+      btns.forEach((button) => {
+        button.addEventListener("click", (e) => {
+          const key = e.target.value;
+          if (key) {
+            if (key === "DEL") {
+              const L = output.textContent.length;
+              outputDiv.textContent = outputDiv.textContent.substring(0, L - 1);
+            } else outputDiv.textContent += key;
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
