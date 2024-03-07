@@ -159,3 +159,17 @@ The user can use the predisposed keys, or they can use their own keyboard to inp
 Once the user constructs their statement, they can submit the input, and get the results.
 
 ![alt text](./assets/image-1.png)
+
+
+# How to use the project
+
+#### Cloning the repo
+
+- Clone the repository
+- Start a local server or double click the `index.html` file
+- Use the predefined keys or your own keys to input a statement
+- Click submit to get back the results
+
+#### Using the live version
+
+[here](https://y4riss.github.io/AI-resolution-algorihm/) is the live version, you can play with it.

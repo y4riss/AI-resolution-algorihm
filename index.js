@@ -229,7 +229,6 @@ function domResult(formula, notFormula, cnf, clauses, isValid) {
   domNotFormula.textContent = notFormula;
   domCnf.textContent = cnf;
   clauses.forEach((clause) => {
-    console.log(clause);
     const li = document.createElement("li");
     li.textContent = clause;
     domClauses.appendChild(li);
@@ -255,14 +254,12 @@ function clearDom() {
     clearDom();
     const originalFormula = document.querySelector("#output").textContent;
 
-    console.log(originalFormula);
     if (!checkStrValidity(originalFormula, whiteList)) {
       console.log("invalid characters in formula");
       return;
     }
 
     const formula = parse(precedence(originalFormula));
-    console.log(JSON.stringify(formula));
     const toStrFormula = stringify(formula);
     const notFormula = "~(" + toStrFormula + ")";
     const cnfFormula = cnf(parse(notFormula));
@@ -275,8 +272,6 @@ function clearDom() {
     const isValid = valide(clauses);
 
     domResult(toStrFormula, notFormula, cnfFormulaStr, clauses, isValid);
-    console.log("Formula : ", toStrFormula);
-    console.log("Negation of Formula : ", notFormula);
-    console.log("CNF of ~Formula: ", cnfFormulaStr);
+
   });
 })();
